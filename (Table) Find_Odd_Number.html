@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odd Number Printer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #f5a623;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f5a623;
+            color: #121212;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #f39c12;
+        }
+
+        #results {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #e0e0e0;
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #282828;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 18px;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Odd Number Printer</h1>
+    <p>Enter two numbers to see the odd numbers between them:</p>
+    
+    <input type="text" id="input1" placeholder="Enter first value">
+    <input type="text" id="input2" placeholder="Enter second value">
+    <button onclick="processInput()">Submit</button>
+    
+    <div id="results"></div>
+
+    <script>
+        // Function to check if a string represents a valid positive integer
+        function isNumber(str) {
+            return /^\d+$/.test(str);
+        }
+
+        // Function to print odd numbers between two values
+        function printOddNumbersBetween(m, n) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            if (isNumber(m) && isNumber(n)) {
+                m = parseInt(m, 10);
+                n = parseInt(n, 10);
+
+                // Ensure m is the smaller number and n is the larger number
+                const [start, end] = m <= n ? [m, n] : [n, m];
+
+                resultsDiv.innerHTML += `<div class="message">The Odd Numbers Between ${start} and ${end}:</div>`;
+
+                // Create a table for the results
+                let tableHTML = '<table><thead><tr><th>Odd Numbers</th></tr></thead><tbody>';
+
+                // Print odd numbers between start and end
+                for (let i = start; i <= end; i++) {
+                    if (i % 2 !== 0) {
+                        tableHTML += `<tr><td>${i}</td></tr>`;
+                    }
+                }
+
+                tableHTML += '</tbody></table>';
+                resultsDiv.innerHTML += tableHTML;
+            } else {
+                resultsDiv.innerHTML = "<div class='message'>Enter valid positive integers as values!</div>";
+            }
+        }
+
+        function processInput() {
+            const input1 = document.getElementById('input1').value.trim();
+            const input2 = document.getElementById('input2').value.trim();
+
+            printOddNumbersBetween(input1, input2);
+        }
+    </script>
+</body>
+</html>
